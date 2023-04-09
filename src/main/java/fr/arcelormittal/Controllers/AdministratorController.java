@@ -32,13 +32,13 @@ public class AdministratorController implements Initializable {
     @FXML
     private Label idLabel;
 
-    private User currentUser = null;
-    private String[] role = {"Worker", "Process Engineer", "Administrator"};
+    private User selectedUSer = null;
+    private String[] roles = {"Worker", "Process Engineer", "Administrator"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        roleChoiceBox.getItems().addAll(role);
-        updateChoiceBox.getItems().addAll(role);
+        roleChoiceBox.getItems().addAll(roles);
+        updateChoiceBox.getItems().addAll(roles);
         updateVBox.setVisible(false);
         updateVBox.setDisable(true);
         setListView();
@@ -55,25 +55,25 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void onListItemsClick(MouseEvent mouseEvent) {
-        this.currentUser = usersListView.getSelectionModel().getSelectedItem();
+        this.selectedUSer = usersListView.getSelectionModel().getSelectedItem();
 
         updateVBox.setDisable(false);
-        idLabel.setText(String.valueOf(currentUser.getId()));
-        updateName.setText(currentUser.getName());
-        updateEmail.setText(currentUser.getEmail());
-        updatePassword.setText(currentUser.gethPassword());
-        updateChoiceBox.setValue(currentUser.getRole());
+        idLabel.setText(String.valueOf(selectedUSer.getId()));
+        updateName.setText(selectedUSer.getName());
+        updateEmail.setText(selectedUSer.getEmail());
+        updatePassword.setText(selectedUSer.getPassword());
+        updateChoiceBox.setValue(selectedUSer.getRole());
         updateVBox.setVisible(true);
     }
 
     @FXML
     private void onUpdateClick(ActionEvent actionEvent) {
         try {
-            currentUser.setName(updateName.getText());
-            currentUser.setEmail(updateEmail.getText());
-            currentUser.setRole(updateChoiceBox.getValue());
-            currentUser.sethPassword(updatePassword.getText());
-            ApplicationHelper.updateUser(currentUser);
+            selectedUSer.setName(updateName.getText());
+            selectedUSer.setEmail(updateEmail.getText());
+            selectedUSer.setRole(updateChoiceBox.getValue());
+            selectedUSer.setPassword(updatePassword.getText());
+            ApplicationHelper.updateUser(selectedUSer);
             setListView();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,8 +83,8 @@ public class AdministratorController implements Initializable {
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
         try {
-            if (! currentUser.getRole().equals("Administrateur")) {
-                ApplicationHelper.deleteUser(currentUser);
+            if (! selectedUSer.getRole().equals("Administrateur")) {
+                ApplicationHelper.deleteUser(selectedUSer);
             }
             setListView();
         } catch (Exception e) {

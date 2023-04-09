@@ -34,7 +34,7 @@ public class LoginController {
     private Parent root;
 
     @FXML
-    protected void onLoginClick(ActionEvent event) throws IOException, SQLException {
+    private void onLoginClick(ActionEvent event) throws IOException, SQLException {
         String mail = mailField.getText();
         String pwd = Password.doHashing(pwdField.getText());
         if (mail.isBlank() && pwd.isBlank()){

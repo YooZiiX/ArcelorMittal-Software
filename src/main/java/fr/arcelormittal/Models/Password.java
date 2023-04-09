@@ -17,7 +17,6 @@ public class Password {
             int randomIndex = random.nextInt(CHARS.length());
             sb.append(CHARS.charAt(randomIndex));
         }
-
         return sb.toString();
     }
 
@@ -29,7 +28,6 @@ public class Password {
             int randomIndex = random.nextInt(CHARS.length());
             sb.append(CHARS.charAt(randomIndex));
         }
-
         return sb.toString();
     }
 

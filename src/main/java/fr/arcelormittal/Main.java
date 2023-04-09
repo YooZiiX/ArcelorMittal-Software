@@ -1,6 +1,5 @@
 package fr.arcelormittal;
 
-import fr.arcelormittal.Models.Password;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

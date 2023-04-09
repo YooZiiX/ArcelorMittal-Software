@@ -40,7 +40,7 @@ public class ApplicationHelper {
 
     public static void updateUser(User user){
         try {
-            DAOManager.getInstance().updateUser(user.getId(), user.getName(), user.getEmail(), user.gethPassword(), user.getRole());
+            DAOManager.getInstance().updateUser(user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getRole());
             LOGGER.info("Utilisateur {} a été modifié",user.getId());
         } catch (IOException e) {
             e.printStackTrace();

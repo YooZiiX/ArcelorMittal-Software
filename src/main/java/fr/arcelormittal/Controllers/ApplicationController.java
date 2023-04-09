@@ -40,21 +40,21 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    protected void onHomeClick(ActionEvent actionEvent) {
+    private void onHomeClick(ActionEvent actionEvent) {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("FXML/home");
         mainPane.setCenter(view);
     }
 
     @FXML
-    protected void onWorkerClick(ActionEvent actionEvent) {
+    private void onWorkerClick(ActionEvent actionEvent) {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("FXML/worker");
         mainPane.setCenter(view);
     }
 
     @FXML
-    protected void onEngineerClick(ActionEvent actionEvent) {
+    private void onEngineerClick(ActionEvent actionEvent) {
         String role = Application.getInstance().getUser().getRole();
         if (role.equals("Process Engineer") || role.equals("Administrateur")) {
             FxmlLoader object = new FxmlLoader();
@@ -64,14 +64,14 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    public void onSettingsClick(ActionEvent actionEvent) {
+    private void onSettingsClick(ActionEvent actionEvent) {
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("FXML/settings");
         mainPane.setCenter(view);
     }
 
     @FXML
-    public void onAdministratorClick(ActionEvent actionEvent) {
+    private void onAdministratorClick(ActionEvent actionEvent) {
         if (Application.getInstance().getUser().getRole().equals("Administrateur")){
             FxmlLoader object = new FxmlLoader();
             Pane view = object.getPage("FXML/administrator");
@@ -82,7 +82,7 @@ public class ApplicationController implements Initializable {
     }
 
     @FXML
-    public void onLogoutClick(ActionEvent actionEvent) throws IOException {
+    private void onLogoutClick(ActionEvent actionEvent) throws IOException {
         Application.getInstance().setUser(null);
         switchScene(actionEvent);
     }

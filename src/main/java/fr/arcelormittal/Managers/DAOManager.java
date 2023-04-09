@@ -1,6 +1,7 @@
 package fr.arcelormittal.Managers;
 
 import fr.arcelormittal.Models.Password;
+import fr.arcelormittal.Models.Stand;
 import fr.arcelormittal.Models.User;
 
 import org.slf4j.Logger;
@@ -98,6 +99,41 @@ public class DAOManager {
                             result.getString("hPwd"),
                             result.getInt("userRole")));
                     next = result.next();
+            }
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return returnList;
+    }
+
+    public Stand getStand(int id) {
+        Stand returnStand = null;
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT isEnable FROM stands WHERE standID = ?;");
+            pStmt.setInt(1,id);
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            while(next) {
+                returnStand = new Stand(id, result.getBoolean("isEnable"));
+                next = result.next();
+            }
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return returnStand;
+    }
+
+    public List<Stand> getStands() {
+        List<Stand> returnList = new ArrayList<Stand>();
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT standID, isEnable FROM stands;");
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            while (next) {
+                returnList.add(new Stand(result.getInt("standID"), result.getBoolean("isEnable")));
+                next = result.next();
             }
             pStmt.close();
         } catch (Exception e) {

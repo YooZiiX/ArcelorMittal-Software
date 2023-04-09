@@ -25,7 +25,10 @@ public class ApplicationController implements Initializable {
     @FXML
     private BorderPane mainPane;
     @FXML
-    private Label userName;
+    private Label userName, standLabel;
+    @FXML
+    private Button AdministratorButton, HomeButton, WorkerButton, EngineerButton, SettingsButton;
+
 
     private Stage stage;
     private Scene scene;
@@ -33,10 +36,21 @@ public class ApplicationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        assert Application.getInstance().getUser() != null;
         FxmlLoader object = new FxmlLoader();
         Pane view = object.getPage("FXML/home");
         mainPane.setCenter(view);
         userName.setText(Application.getInstance().getUser().getName());
+        if (Application.getInstance().getStand() != null) standLabel.setText("Stand " + Application.getInstance().getStand().getId());
+        if (Application.getInstance().getUser().getRole().equals("Worker")) {
+            AdministratorButton.setDisable(true);
+            EngineerButton.setDisable(true);
+            AdministratorButton.setVisible(false);
+        }
+        if (Application.getInstance().getUser().getRole().equals("Process Engineer")){
+            AdministratorButton.setDisable(true);
+            AdministratorButton.setVisible(false);
+        }
     }
 
     @FXML

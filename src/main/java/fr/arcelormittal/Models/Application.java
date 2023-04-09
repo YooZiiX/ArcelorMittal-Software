@@ -10,9 +10,12 @@ public class Application {
     private static Application instance = null;
     private User user = null;
     private List<User> userList = null;
+    private Stand stand = null;
+    private List<Stand> standList = null;
 
     private Application() throws IOException {
         userList = ApplicationHelper.getUsers();
+        standList = ApplicationHelper.getStands();
     }
 
     public static Application getInstance() {
@@ -40,5 +43,13 @@ public class Application {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public Stand getStand() {
+        return stand;
+    }
+
+    public void setStand(Stand stand) {
+        this.stand = stand;
     }
 }

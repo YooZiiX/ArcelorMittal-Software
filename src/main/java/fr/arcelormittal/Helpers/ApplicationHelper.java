@@ -1,6 +1,7 @@
 package fr.arcelormittal.Helpers;
 
 import fr.arcelormittal.Managers.DAOManager;
+import fr.arcelormittal.Models.Stand;
 import fr.arcelormittal.Models.User;
 
 import java.io.IOException;
@@ -49,6 +50,10 @@ public class ApplicationHelper {
 
     public static List<User> getUsers() throws IOException {
         return DAOManager.getInstance().getUsers();
+    }
+
+    public static List<Stand> getStands() throws IOException {
+        return DAOManager.getInstance().getStands();
     }
 
 }

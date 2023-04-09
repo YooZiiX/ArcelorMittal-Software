@@ -22,7 +22,17 @@
                   </Label>
                </children>
             </HBox>
-            <Label fx:id="userName" text="name" />
+            <HBox alignment="TOP_CENTER" prefHeight="22.0" prefWidth="160.0">
+               <children>
+                  <Label fx:id="userName" text="name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text=" | " />
+                  <Label fx:id="standLabel" text="Stand {}" />
+               </children>
+            </HBox>
             <Button fx:id="HomeButton" alignment="CENTER" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="160.0" text="Home">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -43,7 +53,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="AdministratorButton" alignment="CENTER" mnemonicParsing="false" onAction="#onAdministratorClick" prefHeight="40.0" prefWidth="160.0" text="Administrator">
+            <Button fx:id="AdministratorButton" alignment="CENTER" mnemonicParsing="false" onAction="#onAdministratorClick" prefHeight="40.0" prefWidth="160.0" text="Administrator" textFill="RED">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

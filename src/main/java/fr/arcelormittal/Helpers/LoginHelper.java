@@ -2,6 +2,7 @@ package fr.arcelormittal.Helpers;
 
 import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Models.Password;
+import fr.arcelormittal.Models.Stand;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -49,6 +50,10 @@ public class LoginHelper {
     private static void resetField(TextField mailField, PasswordField pwdField){
         mailField.setText("");
         pwdField.setText("");
+    }
+
+    public static Stand getStand(int id) throws IOException {
+        return DAOManager.getInstance().getStand(id);
     }
 
 }

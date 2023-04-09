@@ -15,7 +15,8 @@ public class Main extends javafx.application.Application {
             Parent root = FXMLLoader.load(getClass().getResource("FXML/login.fxml"));
             Scene scene = new Scene(root, 520, 400);
             stage.setScene(scene);
-            stage.setTitle("Orowan-Login");
+            stage.setResizable(false);
+            stage.setTitle("Arcelor Mittal Login");
             stage.show();
         } catch (Exception e){
             e.printStackTrace();

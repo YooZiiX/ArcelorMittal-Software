@@ -4,14 +4,12 @@ import fr.arcelormittal.Helpers.ApplicationHelper;
 import fr.arcelormittal.Helpers.LoginHelper;
 import fr.arcelormittal.Models.Application;
 import fr.arcelormittal.Models.Password;
-import fr.arcelormittal.Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,6 +17,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Random;
 
 public class LoginController {
 
@@ -46,6 +45,8 @@ public class LoginController {
         } else {
             if(LoginHelper.valideLogin(mailField, pwdField, loginMessage)){
                 Application.getInstance().setUser(ApplicationHelper.getUser(mail,pwd));
+                Random rd = new Random();
+                Application.getInstance().setStand(LoginHelper.getStand(rd.nextInt(8 + 1) + 1));
                 switchScene(event);
             }
         }

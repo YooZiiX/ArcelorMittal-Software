@@ -47,7 +47,7 @@ public class DAOManager {
                     "VALUES (?,?,?,(SELECT roleID FROM USERROLES WHERE roleLabel LIKE ?));");
             pStmt.setString(1, name);
             pStmt.setString(2, email);
-            pStmt.setString(3, Password.getRandomPassword());
+            pStmt.setString(3, Password.doHashing(Password.getRandomPassword()));
             pStmt.setString(4,role);
             pStmt.executeUpdate();
             pStmt.close();
@@ -75,7 +75,7 @@ public class DAOManager {
                     " WHERE userID = ?");
             pStmt.setString(1, name);
             pStmt.setString(2,mail);
-            pStmt.setString(3,password);
+            pStmt.setString(3,Password.doHashing(password));
             pStmt.setString(4,role);
             pStmt.setInt(5,id);
             pStmt.executeUpdate();

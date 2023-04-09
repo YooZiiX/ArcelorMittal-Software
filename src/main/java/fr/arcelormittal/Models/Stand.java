@@ -10,6 +10,11 @@ public class Stand {
         this.active = active;
     }
 
+    @Override
+    public String toString(){
+        return "Stand " + getId() + " | " + isActive();
+    }
+
     public int getId() {
         return id;
     }

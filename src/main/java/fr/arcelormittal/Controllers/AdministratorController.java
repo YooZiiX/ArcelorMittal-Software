@@ -32,7 +32,7 @@ public class AdministratorController implements Initializable {
     @FXML
     private Label idLabel;
 
-    private User selectedUSer = null;
+    private User selectedUser = null;
     private String[] roles = {"Worker", "Process Engineer", "Administrator"};
 
     @Override
@@ -55,25 +55,25 @@ public class AdministratorController implements Initializable {
 
     @FXML
     private void onListItemsClick(MouseEvent mouseEvent) {
-        this.selectedUSer = usersListView.getSelectionModel().getSelectedItem();
+        this.selectedUser = usersListView.getSelectionModel().getSelectedItem();
 
         updateVBox.setDisable(false);
-        idLabel.setText(String.valueOf(selectedUSer.getId()));
-        updateName.setText(selectedUSer.getName());
-        updateEmail.setText(selectedUSer.getEmail());
-        updatePassword.setText(selectedUSer.getPassword());
-        updateChoiceBox.setValue(selectedUSer.getRole());
+        idLabel.setText(String.valueOf(selectedUser.getId()));
+        updateName.setText(selectedUser.getName());
+        updateEmail.setText(selectedUser.getEmail());
+        updatePassword.setText(selectedUser.getPassword());
+        updateChoiceBox.setValue(selectedUser.getRole());
         updateVBox.setVisible(true);
     }
 
     @FXML
     private void onUpdateClick(ActionEvent actionEvent) {
         try {
-            selectedUSer.setName(updateName.getText());
-            selectedUSer.setEmail(updateEmail.getText());
-            selectedUSer.setRole(updateChoiceBox.getValue());
-            selectedUSer.setPassword(updatePassword.getText());
-            ApplicationHelper.updateUser(selectedUSer);
+            selectedUser.setName(updateName.getText());
+            selectedUser.setEmail(updateEmail.getText());
+            selectedUser.setRole(updateChoiceBox.getValue());
+            selectedUser.setPassword(updatePassword.getText());
+            ApplicationHelper.updateUser(selectedUser);
             setListView();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,8 +83,8 @@ public class AdministratorController implements Initializable {
     @FXML
     private void onDeleteClick(ActionEvent actionEvent) {
         try {
-            if (! selectedUSer.getRole().equals("Administrateur")) {
-                ApplicationHelper.deleteUser(selectedUSer);
+            if (! selectedUser.getRole().equals("Administrateur")) {
+                ApplicationHelper.deleteUser(selectedUser);
             }
             setListView();
         } catch (Exception e) {

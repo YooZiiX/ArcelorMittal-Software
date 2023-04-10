@@ -34,7 +34,11 @@ public class EngineerController implements Initializable {
     }
 
     @FXML
-    private void onToggleStandButtonClick(ActionEvent actionEvent){
+    private void onToggleStandClick(ActionEvent actionEvent){
+        assert selectedStand != null;
+        boolean state = toggleStandButton.isSelected();
+        selectedStand.setActive(state);
+        ApplicationHelper.updateStand(selectedStand);
         setListView();
     }
 

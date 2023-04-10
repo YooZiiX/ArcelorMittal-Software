@@ -125,6 +125,18 @@ public class DAOManager {
         return returnStand;
     }
 
+    public void updateStand(int id, boolean state){
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("UPDATE stands SET isEnable = ? WHERE standID = ?;");
+            pStmt.setBoolean(1,state);
+            pStmt.setInt(2,id);
+            pStmt.executeUpdate();
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+    }
+
     public List<Stand> getStands() {
         List<Stand> returnList = new ArrayList<Stand>();
         try {

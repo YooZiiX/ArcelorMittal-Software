@@ -34,7 +34,7 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
             </ListView>
-            <ToggleButton fx:id="toggleStandButton" mnemonicParsing="false" text="Enable/Disable">
+            <ToggleButton fx:id="toggleStandButton" mnemonicParsing="false" onMouseClicked="#onToggleStandClick" text="Enable/Disable">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </VBox.margin>

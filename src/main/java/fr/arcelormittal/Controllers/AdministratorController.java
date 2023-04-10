@@ -56,14 +56,15 @@ public class AdministratorController implements Initializable {
     @FXML
     private void onListItemsClick(MouseEvent mouseEvent) {
         this.selectedUser = usersListView.getSelectionModel().getSelectedItem();
-
-        updateVBox.setDisable(false);
-        idLabel.setText(String.valueOf(selectedUser.getId()));
-        updateName.setText(selectedUser.getName());
-        updateEmail.setText(selectedUser.getEmail());
-        updatePassword.setText(selectedUser.getPassword());
-        updateChoiceBox.setValue(selectedUser.getRole());
-        updateVBox.setVisible(true);
+        if (selectedUser != null) {
+            updateVBox.setDisable(false);
+            idLabel.setText(String.valueOf(selectedUser.getId()));
+            updateName.setText(selectedUser.getName());
+            updateEmail.setText(selectedUser.getEmail());
+            updatePassword.setText(selectedUser.getPassword());
+            updateChoiceBox.setValue(selectedUser.getRole());
+            updateVBox.setVisible(true);
+        }
     }
 
     @FXML

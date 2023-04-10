@@ -52,6 +52,14 @@ public class ApplicationHelper {
         return DAOManager.getInstance().getUsers();
     }
 
+    public static void updateStand(Stand stand){
+        try {
+            DAOManager.getInstance().updateStand(stand.getId(), stand.isActive());
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+    }
+
     public static List<Stand> getStands() throws IOException {
         return DAOManager.getInstance().getStands();
     }

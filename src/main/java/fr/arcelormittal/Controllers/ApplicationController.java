@@ -102,7 +102,7 @@ public class ApplicationController implements Initializable {
     }
 
     private void switchScene(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("/FXML/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("../fr.arcelormittal/FXML/login.fxml"));
         Parent root = loader.load();
 
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();

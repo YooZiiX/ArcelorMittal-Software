@@ -6,8 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
@@ -20,24 +20,28 @@ public class EngineerController implements Initializable {
     @FXML
     private ListView<Stand> standListView;
     @FXML
-    private ToggleButton toggleStandButton;
+    private Button standButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        standButton.setVisible(false);
+        standButton.setDisable(true);
         setListView();
     }
 
     @FXML
     private void onListItemsClick(MouseEvent mouseEvent) {
         selectedStand = standListView.getSelectionModel().getSelectedItem();
-        toggleStandButton.setSelected(selectedStand.isActive());
+        standButton.setVisible(true);
+        standButton.setDisable(false);
+        if (selectedStand.isActive()) standButton.setText("Désactiver");
+        else standButton.setText("Activer");
     }
 
     @FXML
-    private void onToggleStandClick(ActionEvent actionEvent){
+    private void onButtonStandClick(ActionEvent actionEvent){
         assert selectedStand != null;
-        boolean state = toggleStandButton.isSelected();
-        selectedStand.setActive(state);
+        selectedStand.setActive(!selectedStand.isActive());
         ApplicationHelper.updateStand(selectedStand);
         setListView();
     }

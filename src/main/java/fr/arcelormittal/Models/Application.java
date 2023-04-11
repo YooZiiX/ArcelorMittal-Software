@@ -4,6 +4,8 @@ import fr.arcelormittal.Helpers.ApplicationHelper;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Application {
 
@@ -12,6 +14,9 @@ public class Application {
     private List<User> userList = null;
     private Stand stand = null;
     private List<Stand> standList = null;
+    private Timer timer = null;
+    private TimerTask task = null;
+    private int count = 0;
 
     private Application() throws IOException {
         userList = ApplicationHelper.getUsers();
@@ -51,5 +56,29 @@ public class Application {
 
     public void setStand(Stand stand) {
         this.stand = stand;
+    }
+
+    public void startTask(){
+        this.timer = new Timer();
+        this.task = new TimerTask() {
+            private int count = 0;
+
+            @Override
+            public void run() {
+                if (count == 5) {
+                    count = 0;
+                    System.out.println("Mean!");
+                }
+                count++;
+                System.out.println("Task Completed !");
+            }
+        };
+        timer.scheduleAtFixedRate(task,0,200);
+    }
+
+    public void endTask(){
+        timer.cancel();
+        this.timer = null;
+        this.task = null;
     }
 }

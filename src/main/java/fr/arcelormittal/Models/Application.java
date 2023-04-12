@@ -1,10 +1,8 @@
 package fr.arcelormittal.Models;
 
 import fr.arcelormittal.Helpers.ApplicationHelper;
-import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Managers.FileManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;

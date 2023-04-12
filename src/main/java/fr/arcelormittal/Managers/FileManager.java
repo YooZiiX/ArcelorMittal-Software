@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class FileManager {
@@ -30,6 +31,7 @@ public class FileManager {
     }
 
     private void readSensor() throws IOException, SQLException {
+        DecimalFormat df = new DecimalFormat(".000");
         scSensor.useDelimiter(";");
         if (scSensor.hasNextLine()) {
             String line = scSensor.nextLine();
@@ -37,7 +39,9 @@ public class FileManager {
                 Mesure m = new Mesure();
                 String[] data = line.split("; ");
                 for (int i = 0; i < data.length; i++) {
-                    m.getValues().add(data[i].replace(',','.'));
+                    double d = Double.parseDouble(data[i].replace(",","."));
+                    String value = df.format(d).replace(",",".");
+                    m.getValues().add(value);
                 }
                 m.addValue();
             }

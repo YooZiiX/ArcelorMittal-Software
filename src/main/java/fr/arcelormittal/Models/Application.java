@@ -1,6 +1,7 @@
 package fr.arcelormittal.Models;
 
 import fr.arcelormittal.Helpers.ApplicationHelper;
+import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Managers.FileManager;
 
 import java.io.FileNotFoundException;
@@ -68,12 +69,13 @@ public class Application {
 
             @Override
             public void run() {
-                if (count == 5) {
-                    count = 0;
-                    System.out.println("Mean!");
-                }
-                count++;
                 try {
+                    if (count == 5) {
+                        count = 0;
+                        ApplicationHelper.computeMean();
+                        System.out.println("Mean!");
+                    }
+                    count++;
                     FileManager.getInstance().initCompute();
                     ApplicationHelper.orowanCompute();
                     FileManager.getInstance().readOutput();
@@ -82,8 +84,8 @@ public class Application {
                 }
             }
         };
-        timer.schedule(task,1000);
-        //timer.scheduleAtFixedRate(task,0,200);
+        //timer.schedule(task,1000);
+        timer.scheduleAtFixedRate(task,0,200);
     }
 
     public void endTask(){

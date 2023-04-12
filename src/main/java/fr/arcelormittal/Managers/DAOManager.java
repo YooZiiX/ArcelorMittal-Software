@@ -182,6 +182,8 @@ public class DAOManager {
     public void addOuput(String[] data) {
         try {
             PreparedStatement pStmt = connection.prepareStatement("INSERT INTO outputorowan " +
+                    " (Cas, caseErrors, OffsetYield, Friction, RollingTorque, SigmaMoy, SigmaIni, SigmaOut, SigmaMax," +
+                    " ForceError, SlipError, hasConverged) " +
                     "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);");
             pStmt.setInt(1,Integer.parseInt(data[0]));
             pStmt.setString(2,data[1]);
@@ -201,4 +203,52 @@ public class DAOManager {
             LOGGER.error("ERROR : {}", e.getCause());
         }
     }
+
+    public void addMeans() {
+        double[] values = {0,0,0};
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, SigmaOut FROM outputorowan WHERE " +
+                    "id >= (SELECT MAX(id) FROM outputorowan);");
+            ResultSet result = pStmt.executeQuery();
+            while (result.next()) {
+                values[0] += result.getDouble("Friction");
+                values[1] += result.getDouble("SigmaOut");
+            }
+            pStmt.close();
+            PreparedStatement pStmt2 = connection.prepareStatement("SELECT WorkRollSpeed FROM othervalue WHERE " +
+                    "id >= (SELECT MAX(id) FROM othervalue);");
+            ResultSet result2 = pStmt2.executeQuery();
+            while (result2.next()) {
+                values[2] += result2.getDouble("WorkRollSpeed");
+            }
+            pStmt2.close();
+            values[0] = values[0] / 5f;
+            values[1] = values[1] / 5f;
+            values[2] = values[2] / 5f;
+            for (double d : values) {
+                System.out.println(d);
+            }
+            insertMean(values);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+
+    }
+
+    private void insertMean(double[] values) {
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("INSERT INTO meanvalues (Friction, Sigma, RollSpeed) " +
+                    "VALUES (?,?,?);");
+            pStmt.setDouble(1,values[0]);
+            pStmt.setDouble(2,values[1]);
+            pStmt.setDouble(3,values[2]);
+            pStmt.executeUpdate();
+            pStmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+    }
+
 }

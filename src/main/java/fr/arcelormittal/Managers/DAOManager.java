@@ -154,4 +154,29 @@ public class DAOManager {
         return returnList;
     }
 
+    public String getInput(){
+        String resultInput = "";
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT Cas, He, Hs, Te, Ts, " +
+                    "Diameter, WRYoung, offsetMesure, Mu, Strengh, G FROM inputorowan ORDER BY Cas DESC;");
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            resultInput += result.getInt("Cas") + ",";
+            resultInput += result.getDouble("He") + ",";
+            resultInput += result.getDouble("Hs") + ",";
+            resultInput += result.getDouble("Te") + ",";
+            resultInput += result.getDouble("Ts") + ",";
+            resultInput += result.getDouble("Diameter") + ",";
+            resultInput += result.getDouble("WRYoung") + ",";
+            resultInput += result.getDouble("offsetMesure") + ",";
+            resultInput += result.getDouble("Mu") + ",";
+            resultInput += result.getDouble("Strengh") + ",";
+            resultInput += result.getDouble("G");
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return resultInput;
+    }
+
 }

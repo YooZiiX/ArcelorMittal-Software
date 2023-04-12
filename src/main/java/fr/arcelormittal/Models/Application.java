@@ -1,8 +1,11 @@
 package fr.arcelormittal.Models;
 
 import fr.arcelormittal.Helpers.ApplicationHelper;
+import fr.arcelormittal.Managers.FileManager;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -70,11 +73,17 @@ public class Application {
                     System.out.println("Mean!");
                 }
                 count++;
-                ApplicationHelper.orowanCompute();
+                try {
+                    FileManager.getInstance().read();
+                    FileManager.getInstance().write();
+                    ApplicationHelper.orowanCompute();
+                } catch (IOException | SQLException e) {
+                    e.printStackTrace();
+                }
             }
         };
-        //timer.schedule(task,1000);
-        timer.scheduleAtFixedRate(task,0,200);
+        timer.schedule(task,1000);
+        //timer.scheduleAtFixedRate(task,0,200);
     }
 
     public void endTask(){

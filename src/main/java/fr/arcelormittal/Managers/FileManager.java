@@ -17,7 +17,7 @@ public class FileManager {
     }
 
     public void read() throws IOException, SQLException {
-        Scanner sc = new Scanner(new File("Orowan/Sensors/1939351_F2.txt"));
+        Scanner sc = new Scanner(new File("./src/main/resources/fr/arcelormittal/Orowan/Sensors/1939351_F2.txt"));
         sc.useDelimiter(";");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();

@@ -179,4 +179,26 @@ public class DAOManager {
         return resultInput;
     }
 
+    public void addOuput(String[] data) {
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("INSERT INTO outputorowan " +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?,?,?);");
+            pStmt.setInt(1,Integer.parseInt(data[0]));
+            pStmt.setString(2,data[1]);
+            pStmt.setDouble(3,Double.parseDouble(data[2]));
+            pStmt.setDouble(4,Double.parseDouble(data[3]));
+            pStmt.setDouble(5,Double.parseDouble(data[4]));
+            pStmt.setDouble(6,Double.parseDouble(data[5]));
+            pStmt.setDouble(7,Double.parseDouble(data[6]));
+            pStmt.setDouble(8,Double.parseDouble(data[7]));
+            pStmt.setDouble(9,Double.parseDouble(data[8]));
+            pStmt.setDouble(10,Double.parseDouble(data[9]));
+            pStmt.setDouble(11,Double.parseDouble(data[10]));
+            pStmt.setString(12,data[11]);
+            pStmt.executeUpdate();
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+    }
 }

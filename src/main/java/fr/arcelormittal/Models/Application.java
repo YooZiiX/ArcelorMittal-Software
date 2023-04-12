@@ -74,16 +74,16 @@ public class Application {
                 }
                 count++;
                 try {
-                    FileManager.getInstance().read();
-                    FileManager.getInstance().write();
+                    FileManager.getInstance().initCompute();
                     ApplicationHelper.orowanCompute();
+                    FileManager.getInstance().readOutput();
                 } catch (IOException | SQLException e) {
                     e.printStackTrace();
                 }
             }
         };
-        //timer.schedule(task,1000);
-        timer.scheduleAtFixedRate(task,0,200);
+        timer.schedule(task,1000);
+        //timer.scheduleAtFixedRate(task,0,200);
     }
 
     public void endTask(){

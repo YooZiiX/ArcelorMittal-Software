@@ -33,11 +33,6 @@
                   <Label fx:id="standLabel" text="Stand {}" />
                </children>
             </HBox>
-            <Button fx:id="HomeButton" alignment="CENTER" mnemonicParsing="false" onAction="#onHomeClick" prefHeight="40.0" prefWidth="160.0" text="Home">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
             <Button fx:id="WorkerButton" alignment="CENTER" mnemonicParsing="false" onAction="#onWorkerClick" prefHeight="40.0" prefWidth="160.0" text="Worker">
                <VBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

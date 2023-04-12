@@ -85,7 +85,6 @@ public class ApplicationHelper {
             writer.flush();
 
             process.waitFor();
-            System.out.println("Process Ended!");
 
             process.destroy();
         } catch (IOException | InterruptedException e) {

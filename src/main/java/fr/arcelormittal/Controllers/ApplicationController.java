@@ -27,7 +27,7 @@ public class ApplicationController implements Initializable {
     @FXML
     private Label userName, standLabel;
     @FXML
-    private Button AdministratorButton, HomeButton, WorkerButton, EngineerButton, SettingsButton;
+    private Button AdministratorButton, WorkerButton, EngineerButton, SettingsButton;
 
 
     private Stage stage;
@@ -38,7 +38,7 @@ public class ApplicationController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         assert Application.getInstance().getUser() != null;
         FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("FXML/home");
+        Pane view = object.getPage("FXML/worker");
         mainPane.setCenter(view);
         userName.setText(Application.getInstance().getUser().getName());
         if (Application.getInstance().getStand() != null) standLabel.setText("Stand " + Application.getInstance().getStand().getId());
@@ -51,13 +51,6 @@ public class ApplicationController implements Initializable {
             AdministratorButton.setDisable(true);
             AdministratorButton.setVisible(false);
         }
-    }
-
-    @FXML
-    private void onHomeClick(ActionEvent actionEvent) {
-        FxmlLoader object = new FxmlLoader();
-        Pane view = object.getPage("FXML/home");
-        mainPane.setCenter(view);
     }
 
     @FXML

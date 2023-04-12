@@ -82,8 +82,8 @@ public class Application {
                 }
             }
         };
-        timer.schedule(task,1000);
-        //timer.scheduleAtFixedRate(task,0,200);
+        //timer.schedule(task,1000);
+        timer.scheduleAtFixedRate(task,0,200);
     }
 
     public void endTask(){

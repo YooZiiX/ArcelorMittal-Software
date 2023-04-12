@@ -24,7 +24,6 @@ public class Main extends javafx.application.Application {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
-        //FileReader.getInstance().read("Orowan/1939351_F2.txt");
         launch();
     }
 }

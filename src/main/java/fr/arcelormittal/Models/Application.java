@@ -70,9 +70,10 @@ public class Application {
                     System.out.println("Mean!");
                 }
                 count++;
-                System.out.println("Task Completed !");
+                ApplicationHelper.orowanCompute();
             }
         };
+        //timer.schedule(task,1000);
         timer.scheduleAtFixedRate(task,0,200);
     }
 

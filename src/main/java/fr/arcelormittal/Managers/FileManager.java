@@ -1,22 +1,23 @@
-package fr.arcelormittal.Models;
+package fr.arcelormittal.Managers;
+
+import fr.arcelormittal.Models.Mesure;
 
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class FileReader {
+public class FileManager {
 
-    private static FileReader instance = null;
+    private static FileManager instance = null;
 
-    public static FileReader getInstance(){
-        if (instance == null) instance = new FileReader();
+    public static FileManager getInstance(){
+        if (instance == null) instance = new FileManager();
         return instance;
     }
 
-    public void read(String filePath) throws IOException, SQLException {
-        Scanner sc = new Scanner(new File("C:/.dev/eclipse_workspace/FileReader/" +
-                "src/Models/1939351_F2.txt"));
+    public void read() throws IOException, SQLException {
+        Scanner sc = new Scanner(new File("Orowan/Sensors/1939351_F2.txt"));
         sc.useDelimiter(";");
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -31,5 +32,4 @@ public class FileReader {
         }
         sc.close();
     }
-
 }

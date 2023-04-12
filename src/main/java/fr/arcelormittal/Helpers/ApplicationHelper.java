@@ -4,6 +4,7 @@ import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Models.Stand;
 import fr.arcelormittal.Models.User;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.sql.*;
 import java.util.List;
@@ -62,6 +63,34 @@ public class ApplicationHelper {
 
     public static List<Stand> getStands() throws IOException {
         return DAOManager.getInstance().getStands();
+    }
+
+    public static void orowanCompute(){
+        try {
+            ProcessBuilder processBuilder = new ProcessBuilder("./src/main/resources/fr/arcelormittal/Orowan/Orowan_x64.exe");
+            Process process = processBuilder.start();
+
+            DataOutputStream writer = new DataOutputStream(process.getOutputStream());
+
+            writer.writeBytes("i\n");
+            writer.flush();
+
+            writer.writeBytes("c\n");
+            writer.flush();
+
+            writer.writeBytes("./src/main/resources/fr/arcelormittal/Orowan/Input/inv_cst.txt\n");
+            writer.flush();
+
+            writer.writeBytes("./src/main/resources/fr/arcelormittal/Orowan/Output/output.txt\n");
+            writer.flush();
+
+            process.waitFor();
+            System.out.println("Process Ended!");
+
+            process.destroy();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

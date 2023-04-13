@@ -22,7 +22,7 @@ public class MesureHelper {
                 "(Cas, He, Hs, Te, Ts, Diameter, WRYoung, offsetMesure, Mu, Strengh, G) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement pStmt = connectionDB.prepareStatement(sql);
-        pStmt.setInt(1, Integer.parseInt(mesureValues.get(0).replace(".0","")));
+        pStmt.setInt(1, Integer.parseInt(mesureValues.get(0).replace(".000","")));
         pStmt.setDouble(2, Double.parseDouble(mesureValues.get(4)));
         pStmt.setDouble(3, Double.parseDouble(mesureValues.get(5)));
         pStmt.setDouble(4, Double.parseDouble(mesureValues.get(6)));
@@ -46,8 +46,8 @@ public class MesureHelper {
                 " InputError, WaterFlowUp, WaterFlowLo, OilFlowUp, OilFlowLo, WorkRollSpeed) " +
                 "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement pStmt1 = connectionDB.prepareStatement(sql1);
-        pStmt1.setInt(1,Integer.parseInt(mesureValues.get(0).replace(".0","")));
-        pStmt1.setInt(2,Integer.parseInt(mesureValues.get(1).replace(".0","")));
+        pStmt1.setInt(1,Integer.parseInt(mesureValues.get(0).replace(".000","")));
+        pStmt1.setInt(2,Integer.parseInt(mesureValues.get(1).replace(".000","")));
         pStmt1.setDouble(3,Double.parseDouble(mesureValues.get(2)));
         pStmt1.setDouble(4,Double.parseDouble(mesureValues.get(3)));
         pStmt1.setDouble(5,Double.parseDouble(mesureValues.get(11)));

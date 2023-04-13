@@ -158,20 +158,21 @@ public class DAOManager {
         String resultInput = "";
         try {
             PreparedStatement pStmt = connection.prepareStatement("SELECT Cas, He, Hs, Te, Ts, " +
-                    "Diameter, WRYoung, offsetMesure, Mu, Strengh, G FROM inputorowan ORDER BY Cas DESC;");
+                    "Diameter, WRYoung, offsetMesure, Mu, Strengh, G FROM inputorowan ORDER BY id DESC;");
             ResultSet result = pStmt.executeQuery();
             boolean next = result.next();
-            resultInput += result.getInt("Cas") + ",";
-            resultInput += result.getDouble("He") + ",";
-            resultInput += result.getDouble("Hs") + ",";
-            resultInput += result.getDouble("Te") + ",";
-            resultInput += result.getDouble("Ts") + ",";
-            resultInput += result.getDouble("Diameter") + ",";
-            resultInput += result.getDouble("WRYoung") + ",";
-            resultInput += result.getDouble("offsetMesure") + ",";
-            resultInput += result.getDouble("Mu") + ",";
-            resultInput += result.getDouble("Strengh") + ",";
+            resultInput += result.getInt("Cas") + ";";
+            resultInput += result.getDouble("He") + ";";
+            resultInput += result.getDouble("Hs") + ";";
+            resultInput += result.getDouble("Te") + ";";
+            resultInput += result.getDouble("Ts") + ";";
+            resultInput += result.getDouble("Diameter") + ";";
+            resultInput += result.getDouble("WRYoung") + ";";
+            resultInput += result.getDouble("offsetMesure") + ";";
+            resultInput += result.getDouble("Mu") + ";";
+            resultInput += result.getDouble("Strengh") + ";";
             resultInput += result.getDouble("G");
+            System.out.println(resultInput);
             pStmt.close();
         } catch (Exception e) {
             LOGGER.error("ERROR : {}", e.getCause());
@@ -208,7 +209,7 @@ public class DAOManager {
         double[] values = {0,0,0};
         try {
             PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, SigmaOut FROM outputorowan WHERE " +
-                    "id >= (SELECT MAX(id) FROM outputorowan);");
+                    "id >= (SELECT MAX(id) - 5 FROM outputorowan);");
             ResultSet result = pStmt.executeQuery();
             while (result.next()) {
                 values[0] += result.getDouble("Friction");
@@ -216,7 +217,7 @@ public class DAOManager {
             }
             pStmt.close();
             PreparedStatement pStmt2 = connection.prepareStatement("SELECT WorkRollSpeed FROM othervalue WHERE " +
-                    "id >= (SELECT MAX(id) FROM othervalue);");
+                    "id >= (SELECT MAX(id) - 5 FROM othervalue);");
             ResultSet result2 = pStmt2.executeQuery();
             while (result2.next()) {
                 values[2] += result2.getDouble("WorkRollSpeed");
@@ -225,9 +226,6 @@ public class DAOManager {
             values[0] = values[0] / 5f;
             values[1] = values[1] / 5f;
             values[2] = values[2] / 5f;
-            for (double d : values) {
-                System.out.println(d);
-            }
             insertMean(values);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -67,7 +67,7 @@ public class FileManager {
         try {
             FileWriter writer = new FileWriter("./src/main/resources/fr/arcelormittal/Orowan/Input/inv_cst.txt");
             writer.write("Cas\tHe\tHs\tTe\tTs\tDiam_WR\tWRyoung\toffset ini\tmu_ini\tForce\tG\n");
-            writer.write(DAOManager.getInstance().getInput().replace(",","\t"));
+            writer.write(DAOManager.getInstance().getInput().replace(";","\t"));
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,9 +2,14 @@ package fr.arcelormittal.Models;
 
 import fr.arcelormittal.Helpers.ApplicationHelper;
 import fr.arcelormittal.Managers.FileManager;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +23,7 @@ public class Application {
     private List<Stand> standList = null;
     private Timer timer = null;
     private TimerTask task = null;
-    private int count = 0;
+    private int time = 0;
 
     private Application() throws IOException {
         userList = ApplicationHelper.getUsers();
@@ -44,14 +49,6 @@ public class Application {
         this.user = user;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
     public Stand getStand() {
         return stand;
     }
@@ -60,20 +57,32 @@ public class Application {
         this.stand = stand;
     }
 
-    public void startTask(){
+    public void startTask(Label computeLabel, LineChart frictionChart, LineChart sigmaChart, LineChart rollSpeedChart){
         this.timer = new Timer();
+        XYChart.Series frictionSeries = new XYChart.Series();
+        XYChart.Series sigmaSeries = new XYChart.Series();
+        XYChart.Series rollSpeedSeries = new XYChart.Series();
         this.task = new TimerTask() {
             private int count = 0;
-
+            Instant start = Instant.now();
             @Override
             public void run() {
                 try {
                     if (count == 5) {
                         count = 0;
-                        ApplicationHelper.computeMean();
+                        time ++;
+                        double[] values = ApplicationHelper.computeMean();
+                        frictionSeries.getData().add(new XYChart.Data(time,values[0]));
+                        frictionChart.getData().add(frictionSeries);
+                        sigmaSeries.getData().add(new XYChart.Data(time,values[1]));
+                        sigmaChart.getData().add(sigmaSeries);
+                        rollSpeedSeries.getData().add(new XYChart.Data(time,values[2]));
+                        rollSpeedChart.getData().add(rollSpeedSeries);
                         System.out.println("Mean!");
                     }
                     count++;
+                    Instant end = Instant.now();
+                    Duration time = Duration.between(start, end);
                     FileManager.getInstance().initCompute();
                     ApplicationHelper.orowanCompute();
                     FileManager.getInstance().readOutput();
@@ -82,7 +91,6 @@ public class Application {
                 }
             }
         };
-        //timer.schedule(task,1000);
         timer.scheduleAtFixedRate(task,0,200);
     }
 

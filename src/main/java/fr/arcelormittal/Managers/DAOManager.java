@@ -172,7 +172,6 @@ public class DAOManager {
             resultInput += result.getDouble("Mu") + ";";
             resultInput += result.getDouble("Strengh") + ";";
             resultInput += result.getDouble("G");
-            System.out.println(resultInput);
             pStmt.close();
         } catch (Exception e) {
             LOGGER.error("ERROR : {}", e.getCause());
@@ -205,7 +204,7 @@ public class DAOManager {
         }
     }
 
-    public void addMeans() {
+    public double[] addMeans() {
         double[] values = {0,0,0};
         try {
             PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, SigmaOut FROM outputorowan WHERE " +
@@ -228,10 +227,9 @@ public class DAOManager {
             values[2] = values[2] / 5f;
             insertMean(values);
         } catch (SQLException e) {
-            e.printStackTrace();
             LOGGER.error("ERROR : {}", e.getCause());
         }
-
+        return values;
     }
 
     private void insertMean(double[] values) {
@@ -244,9 +242,24 @@ public class DAOManager {
             pStmt.executeUpdate();
             pStmt.close();
         } catch (Exception e) {
-            e.printStackTrace();
             LOGGER.error("ERROR : {}", e.getCause());
         }
+    }
+
+    public double[] getMean(){
+        double[] resultValues = new double[2];
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, Sigma, RollSpeed FROM meanvalues ORDER BY id DESC;");
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            resultValues[0] = result.getDouble("Friction");
+            resultValues[1] = result.getDouble("Sigma");
+            resultValues[2] = result.getDouble("RollSpeed");
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return resultValues;
     }
 
 }

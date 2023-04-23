@@ -85,6 +85,7 @@ public class ApplicationHelper {
             writer.flush();
 
             process.waitFor();
+            //Calcul Compute Time
 
             process.destroy();
         } catch (IOException | InterruptedException e) {
@@ -92,8 +93,8 @@ public class ApplicationHelper {
         }
     }
 
-    public static void computeMean() throws IOException {
-        DAOManager.getInstance().addMeans();
+    public static double[] computeMean() throws IOException {
+        return DAOManager.getInstance().addMeans();
     }
 
 }

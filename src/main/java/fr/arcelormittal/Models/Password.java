@@ -6,25 +6,25 @@ import java.security.SecureRandom;
 
 public class Password {
 
-    private static final int LENGHT = 18;
+    private static final int LENGTH = 18;
     private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnoprstuvwxyz1234567890";
 
     public static String getRandomPassword(){
         SecureRandom random = new SecureRandom();
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i <= LENGHT; i++) {
+        for (int i = 0; i <= LENGTH; i++) {
             int randomIndex = random.nextInt(CHARS.length());
             sb.append(CHARS.charAt(randomIndex));
         }
         return sb.toString();
     }
 
-    public static String getRandomPassword(int lenght){
+    public static String getRandomPassword(int length){
         SecureRandom random = new SecureRandom();
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i <= lenght; i++) {
+        for (int i = 0; i <= length; i++) {
             int randomIndex = random.nextInt(CHARS.length());
             sb.append(CHARS.charAt(randomIndex));
         }

@@ -93,8 +93,8 @@ public class ApplicationHelper {
         }
     }
 
-    public static double[] computeMean() throws IOException {
-        return DAOManager.getInstance().addMeans();
+    public static void computeMean() throws IOException {
+        DAOManager.getInstance().addMeans();
     }
 
 }

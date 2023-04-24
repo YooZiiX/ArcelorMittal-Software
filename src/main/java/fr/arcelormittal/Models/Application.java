@@ -1,7 +1,9 @@
 package fr.arcelormittal.Models;
 
 import fr.arcelormittal.Helpers.ApplicationHelper;
+import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Managers.FileManager;
+import javafx.application.Platform;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
@@ -23,6 +25,9 @@ public class Application {
     private List<Stand> standList = null;
     private Timer timer = null;
     private TimerTask task = null;
+    private XYChart.Series<Number, Number> frictionSeries;
+    private XYChart.Series<Number, Number> sigmaSeries;
+    private XYChart.Series<Number, Number> rollSpeedSeries;
     private int time = 0;
 
     private Application() throws IOException {
@@ -59,25 +64,21 @@ public class Application {
 
     public void startTask(Label computeLabel, LineChart frictionChart, LineChart sigmaChart, LineChart rollSpeedChart){
         this.timer = new Timer();
-        XYChart.Series frictionSeries = new XYChart.Series();
-        XYChart.Series sigmaSeries = new XYChart.Series();
-        XYChart.Series rollSpeedSeries = new XYChart.Series();
+
         this.task = new TimerTask() {
             private int count = 0;
             Instant start = Instant.now();
             @Override
             public void run() {
                 try {
+                    frictionSeries = new XYChart.Series<>();
+                    sigmaSeries = new XYChart.Series<>();
+                    rollSpeedSeries = new XYChart.Series<>();
                     if (count == 5) {
                         count = 0;
                         time ++;
-                        double[] values = ApplicationHelper.computeMean();
-                        frictionSeries.getData().add(new XYChart.Data(time,values[0]));
-                        frictionChart.getData().add(frictionSeries);
-                        sigmaSeries.getData().add(new XYChart.Data(time,values[1]));
-                        sigmaChart.getData().add(sigmaSeries);
-                        rollSpeedSeries.getData().add(new XYChart.Data(time,values[2]));
-                        rollSpeedChart.getData().add(rollSpeedSeries);
+                        ApplicationHelper.computeMean();
+                        showCharts(frictionChart,sigmaChart,rollSpeedChart);
                         System.out.println("Mean!");
                     }
                     count++;
@@ -92,6 +93,32 @@ public class Application {
             }
         };
         timer.scheduleAtFixedRate(task,0,200);
+    }
+
+    private void showCharts(LineChart frictionChart, LineChart sigmaChart, LineChart rollSpeedChart){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                frictionSeries.getData().clear();
+                sigmaSeries.getData().clear();
+                rollSpeedSeries.getData().clear();
+                try {
+                    double[] frictionValues = DAOManager.getInstance().getFriction();
+                    double[] sigmaValues = DAOManager.getInstance().getSigma();
+                    double[] rollSpeedValues = DAOManager.getInstance().getRollSpeed();
+                    for (int i = 1; i < frictionValues.length; i++) {
+                        frictionSeries.getData().add(new XYChart.Data(i,frictionValues[i]));
+                        sigmaSeries.getData().add(new XYChart.Data<>(i,sigmaValues[i]));
+                        rollSpeedSeries.getData().add(new XYChart.Data<>(i,rollSpeedValues[i]));
+                    }
+                    frictionChart.getData().add(frictionSeries);
+                    sigmaChart.getData().add(sigmaSeries);
+                    rollSpeedChart.getData().add(rollSpeedSeries);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void endTask(){

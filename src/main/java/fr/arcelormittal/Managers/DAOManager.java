@@ -204,7 +204,7 @@ public class DAOManager {
         }
     }
 
-    public double[] addMeans() {
+    public void addMeans() {
         double[] values = {0,0,0};
         try {
             PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, SigmaOut FROM outputorowan WHERE " +
@@ -229,7 +229,6 @@ public class DAOManager {
         } catch (SQLException e) {
             LOGGER.error("ERROR : {}", e.getCause());
         }
-        return values;
     }
 
     private void insertMean(double[] values) {
@@ -246,15 +245,56 @@ public class DAOManager {
         }
     }
 
-    public double[] getMean(){
-        double[] resultValues = new double[2];
+    public double[] getFriction(){
+        double[] resultValues = new double[4];
         try {
-            PreparedStatement pStmt = connection.prepareStatement("SELECT Friction, Sigma, RollSpeed FROM meanvalues ORDER BY id DESC;");
+            PreparedStatement pStmt = connection.prepareStatement("SELECT Friction FROM meanvalues WHERE id >= (SELECT MAX(id) - 5 FROM meanValues);");
             ResultSet result = pStmt.executeQuery();
             boolean next = result.next();
-            resultValues[0] = result.getDouble("Friction");
-            resultValues[1] = result.getDouble("Sigma");
-            resultValues[2] = result.getDouble("RollSpeed");
+            int i = 0;
+            while (next) {
+                resultValues[i] = result.getDouble("Friction");
+                i++;
+                next = result.next();
+            }
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return resultValues;
+    }
+
+    public double[] getSigma(){
+        double[] resultValues = new double[4];
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT Sigma FROM meanvalues WHERE id >= (SELECT MAX(id) - 5 FROM meanValues);");
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            int i = 0;
+            while (next) {
+                resultValues[0] = result.getDouble("Sigma");
+                i++;
+                next = result.next();
+            }
+            pStmt.close();
+        } catch (Exception e) {
+            LOGGER.error("ERROR : {}", e.getCause());
+        }
+        return resultValues;
+    }
+
+    public double[] getRollSpeed(){
+        double[] resultValues = new double[4];
+        try {
+            PreparedStatement pStmt = connection.prepareStatement("SELECT RollSpeed FROM meanvalues WHERE id >= (SELECT MAX(id) - 5 FROM meanValues);");
+            ResultSet result = pStmt.executeQuery();
+            boolean next = result.next();
+            int i = 0;
+            while(next) {
+                resultValues[0] = result.getDouble("RollSpeed");
+                i++;
+                next = result.next();
+            }
             pStmt.close();
         } catch (Exception e) {
             LOGGER.error("ERROR : {}", e.getCause());

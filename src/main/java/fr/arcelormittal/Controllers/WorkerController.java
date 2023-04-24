@@ -1,19 +1,15 @@
 package fr.arcelormittal.Controllers;
 
-import fr.arcelormittal.Managers.DAOManager;
 import fr.arcelormittal.Models.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
 
 public class WorkerController implements Initializable {
 

@@ -79,3 +79,6 @@ Then store values in the WampServer SQL database.
 And every 5 iterations, we compute the average Friction coeffiecient value.
 
 ## User
+
+Through our specifications, we can see that we need to implement CRUD functionnality, for User and User rights.
+(**C**reate - **R**etrieve - **U**pdate - **D**elete)

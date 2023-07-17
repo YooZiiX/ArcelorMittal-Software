@@ -76,7 +76,8 @@ In this project, **Orowan** is an executable, which must be used with Java.
 As required by the specifications, we have to use **Orowan** every 200ms,
 Then store values in the WampServer SQL database.
 
-And every 5 iterations, we compute the average Friction coeffiecient value.
+Every 5 Orowan's iterations, we compute the average Friction coefficient value.
+And we store the values in the database.
 
 ## User
 

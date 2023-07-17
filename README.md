@@ -3,6 +3,12 @@
 This software engineering project is a partnership between **IMT Mines Alès** and **ArcelorMittal**,
 a well-known company in the world of metallurgy.
 
+It is a team project, we are using the SCRUM method, which is an Agile method. 
+This method imposes rigor on the project's progress, with one meeting per week.
+
+The collaborators are : [Emile Aydar](https://github.com/xXMagIkZzR4mBOXx),
+[Amine H.](https://github.com/ggleKg) and [myself](https://github.com/YooZiiX).
+
 The project is based on the following specifications:
 
 - Read CSV
@@ -91,3 +97,31 @@ We also created a random password generation feature.
 ### User's Roles
 The specification shows 2 user roles (Worker & Process Engineer), but he took the liberty of making a new one,
 the Administrator.
+
+## Human-Machine Interfaces (HMI)
+
+The specification shows that differents user doesn't have the same HMI
+
+### For every one
+
+The first screen on opening the software is the Login screen.
+There is no registration for users. It is the role of administrator to create an account for all new users.
+
+After logging on, the user has access to the stand ID and the working interface. This is where his role is important,
+as he may or may not have access to parts of the software.
+
+### For Worker
+
+This part is accessible by **any role**. In this part, the user can start or stop computing value using Orowan.
+Furthermore, the user can see the evolution of the following curves :
+- Friction
+- Roll speed
+- Sigma
+
+### For Process Engineer
+
+This part is accessible by **Process Engineer** and **Administrator**. In this part, the user can enable or disable a stand.
+
+### For Administrator
+
+This part is accessible only by **Administrator**. 

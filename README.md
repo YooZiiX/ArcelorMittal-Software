@@ -107,8 +107,8 @@ The specification shows that differents user doesn't have the same HMI
 The first screen on opening the software is the Login screen.
 There is no registration for users. It is the role of administrator to create an account for all new users.
 
-After logging on, the user has access to the stand ID and the working interface. This is where his role is important,
-as he may or may not have access to parts of the software.
+After logging on, the user has access to the stand ID, to the logout feature using the logout button and finally the working interface.
+This is where his role is important, as he may or may not have access to parts of the software.
 
 ### For Worker
 
@@ -124,4 +124,6 @@ This part is accessible by **Process Engineer** and **Administrator**. In this p
 
 ### For Administrator
 
-This part is accessible only by **Administrator**. 
+This part is accessible only by **Administrator**. In this part,
+Administrator can **C**reate, **R**etrieve, **U**pdate and **D**elete users.
+But also add and remove user rights.

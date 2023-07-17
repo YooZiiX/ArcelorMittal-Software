@@ -12,11 +12,11 @@ The project is based on the following specifications:
 - Human-Machine Interface:
   - For every one:
     - Login / Logout
-  - For the worker:
+  - For the Worker:
     - Stand ID
     - Compute time of orowan
     - Friction coefficient factor
-  - For the process engineer:
+  - For the Process Engineer:
     - Add / Remove / Update User
     - Add / Remove / Update User rights
     - Change application settings:
@@ -82,3 +82,11 @@ And every 5 iterations, we compute the average Friction coeffiecient value.
 
 Through our specifications, we can see that we need to implement CRUD functionnality, for User and User rights.
 (**C**reate - **R**etrieve - **U**pdate - **D**elete)
+
+### User's Password
+To store the user's password in the database, we used a hash method (MD5).
+We also created a random password generation feature.
+
+### User's Roles
+The specification shows 2 user roles (Worker & Process Engineer), but he took the liberty of making a new one,
+the Administrator.
